@@ -1,4 +1,4 @@
-# Win10-LTSC-2021-Deblot
+# Win10LTSCConfigure
 This script is focused on debloting/securing Windows 10 LTSC 2021 even more than it already is.
 
 This mostly was created to aid me evert time I reset my pc.
