@@ -1,3 +1,5 @@
+import subprocess as system
+
 def int_input(message, min=None, max=None):
     while True:
         try:
@@ -21,7 +23,19 @@ def prompt_yn(message):
         else:
             print("Please enter 'y' or 'n'.")
 
+def run(command, powershell=False, error=True, output=False):
+    try:
+        if powershell:
+            return system.run(['powershell', '-command', *command], check=error, capture_output=output)
+
+        return system.run([*command], check=error, capture_output=output)
+    except system.CalledProcessError as error:
+        print(f"Command failed to run: {' '.join(command)}")
+        print(f"Error: {error}")
+        exit(1)
+
 def install_app(app_name):
     print(f"Installing {app_name}...")
-    
-    # TODO: Install via chocolatey
+
+    run(['choco', 'install', app_name])
+

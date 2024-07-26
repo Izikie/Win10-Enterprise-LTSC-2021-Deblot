@@ -16,6 +16,14 @@ system_category = {
         "name": "Disable Useless Optional/Addition Features",
         "function": disable_useless_features
     },
+    4: {
+        "name": "Disable Boot Apps",
+        "function": disable_boot_apps
+    },
+    5: {
+        "name": "NVCleanInstall (NVIDIA GPU Driver)",
+        "function": nvcleaninstall
+    }
 }
 
 program_category = {
@@ -65,12 +73,25 @@ if platform.release() != '10':
     print("This script only supports Windows 10")
     exit(1)
 
-while True:
+def print_header():
+    print("#############################################\n")
+    print("""########   ######   #######  ########  
+##     ## ##    ## ##     ## ##     ## 
+##     ## ##       ##     ## ##     ## 
+########   ######  ##     ## ##     ## 
+##     ##       ## ##     ## ##     ## 
+##     ## ##    ## ##     ## ##     ## 
+########   ######   #######  ########""")
+    print("\nWORK IN PROGRESS: DO NOT USE")
+    print(f"\n########## Windows 10 Setup Script ##########\n")
     print("1. System")
     print("2. Program")
     print("3. Exit")
-    
-    category = int_input("Category Number", 1, 3)
+
+while True:
+    print_header()
+
+    category = int_input("Category", 1, 3)
     
     if category == 3:
         break
@@ -81,13 +102,20 @@ while True:
         selected = system_category
     else:
         selected = program_category
+
+    length = len(selected) + 1
         
     for i, name in selected.items():
         print(f"{i}: {name}")
+    print(f"{length}: All")
         
-    script = int_input("Scipt", 1, len(selected))
+    script = int_input("Script", 1, length)
     
-    selected[script]["function"]()
+    if script == length:
+        for script in selected:
+            selected[script]["function"]()
+    else:
+        selected[script]["function"]()
         
     
         
